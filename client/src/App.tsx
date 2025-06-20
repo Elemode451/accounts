@@ -2,6 +2,7 @@ import React, { ChangeEvent, Component } from 'react';
 import { AccountManager } from './AccountManager';
 import { LoginForm } from './LoginForm';
 import "./App.css";
+import { PAGE, REGISTER, ERROR_MESSAGE, SITE_INFO, WELCOME, LOGIN, ACCOUNT_MANAGER, DEFAULT_PASSWORD, DEFAULT_USERNAME, isRecord, REGISTER_TEXT, LOGIN_TEXT } from './utils';
 
 type AppProps = {};  // no props
 
@@ -16,16 +17,8 @@ type AppState = {
   subaccounts: Array<string>
 };
 
-type PAGE = {kind: "login"} | {kind: "register"} | {kind: "account-manager", user: string}
 
-const LOGIN = {kind: "login"} as const;
-const REGISTER = {kind: "register"} as const;
-export const ACCOUNT_MANAGER = (user: string) : PAGE => {
-  return {kind: "account-manager", user: user};
-}
 
-const ERROR_MESSAGE = "An error has occured.";
-const SITE_INFO = "Create accounts like a TITAN of accounts. Just keep creating man.";
 /** Top-level component that displays the entire UI. */
 export class App extends Component<AppProps, AppState> {
   constructor(props: AppProps) {
@@ -33,8 +26,8 @@ export class App extends Component<AppProps, AppState> {
 
     this.state = {
       page: REGISTER,
-      username: "TEST_USER",
-      password: "testPass123",
+      username: DEFAULT_USERNAME,
+      password: DEFAULT_PASSWORD,
       error: false,
       error_message: ERROR_MESSAGE,
       add_accounts: false,
@@ -44,101 +37,96 @@ export class App extends Component<AppProps, AppState> {
   }
  
 
-  render = (): JSX.Element => {
-    return (
-      <>
-      <div className="app-container">
-        {this.state.page.kind === "login" && (
-          <div className="app-container">
-            {this.state.page.kind === "login" && (
-              <div className="login-stack">  
-                <div className="form-wrapper">
-                  <h1 className="title">Welcome to Accounts.com!</h1>
-                  <LoginForm
-                    username={this.state.username}
-                    password={this.state.password}
-                    error={this.state.error}
-                    error_message={this.state.error_message}
-                    onUsernameChange={this.doUsernameChange}
-                    onPasswordChange={this.doPasswordChange}
-                    onSubmitClick={this.doLoginClick}
-                    submitLabel="Log In"
-                    renderExtras={() => (
-                      <button className="switch-button" onClick={this.doRegistrationFlowClick}>
-                        New User? Register Here
-                      </button>
-                    )}
-                  />
-                </div>
+render = (): JSX.Element => {
+  const { page } = this.state;
 
-                <div className="external-textbox">
-                  <div className="static-note">
-                    {SITE_INFO}
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-        )}
-
-        {this.state.page.kind === "register" && (
-          <div className="login-stack">
-            <div className="form-wrapper">
-              <h1 className="title">Welcome to Accounts.com!</h1>
-              <LoginForm
-                username={this.state.username}
-                password={this.state.password}
-                error={this.state.error}
-                error_message={this.state.error_message}
-                onUsernameChange={this.doUsernameChange}
-                onPasswordChange={this.doPasswordChange}
-                onSubmitClick={this.doRegistrationClick}
-                submitLabel="Register Now"
-                renderExtras={() => (
-                  <button className="switch-button" onClick={this.doLoginFlowClick}>
-                    Existing User? Login Here
-                  </button>
-                )}
-              />
-            </div>
-
-            <div className="external-textbox">
-              <div className="static-note">
-                {SITE_INFO}
-              </div>
-            </div>
-          </div>
-
-        )}
-
-        {this.state.page.kind === "account-manager" && (
-          <div className="manager-wrapper">
-            <AccountManager
-              user={this.state.username}
-              doLogoutCallback={this.doLogoutCallback}
-              doAddAccountCallback={this.doAddAccountCallback}
-              doLoginCallback={this.doAccountInformationFetch}
-              accounts={this.state.accounts}
-              subaccounts={this.state.subaccounts}
+  return (
+    <div className="app-container">
+      {page.kind === "login" && (
+        <div className="login-stack">
+          <div className="form-wrapper">
+            <h1 className="title">{WELCOME}</h1>
+            <LoginForm
+              username={this.state.username}
+              password={this.state.password}
               error={this.state.error}
               error_message={this.state.error_message}
-              add_accounts={this.state.add_accounts}
-              doAddAccountsDisplayCallback={this.doAddAccountsCallback}
+              onUsernameChange={this.doUsernameChange}
+              onPasswordChange={this.doPasswordChange}
+              onSubmitClick={this.doLoginClick}
+              submitLabel="Log In"
+              renderExtras={() => (
+                <button className="switch-button" onClick={this.doRegistrationFlowClick}>
+                  New User? Register Here
+                </button>
+              )}
             />
           </div>
-        )}
-      </div>
-      </>
-    );
-  };
+
+          <div className="external-textbox">
+            <div className="static-note">
+              {SITE_INFO}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {page.kind === "register" && (
+        <div className="login-stack">
+          <div className="form-wrapper">
+            <h1 className="title">{WELCOME}</h1>
+            <LoginForm
+              username={this.state.username}
+              password={this.state.password}
+              error={this.state.error}
+              error_message={this.state.error_message}
+              onUsernameChange={this.doUsernameChange}
+              onPasswordChange={this.doPasswordChange}
+              onSubmitClick={this.doRegistrationClick}
+              submitLabel="Register"
+              renderExtras={() => (
+                <button className="switch-button" onClick={this.doLoginFlowClick}>
+                  {LOGIN_TEXT}
+                </button>
+              )}
+            />
+          </div>
+
+          <div className="external-textbox">
+            <div className="static-note">
+              {SITE_INFO}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {page.kind === "account-manager" && (
+        <div className="manager-wrapper">
+          <AccountManager
+            user={this.state.username}
+            doLogoutCallback={this.doLogoutCallback}
+            doAddAccountCallback={this.doAddAccountCallback}
+            doLoginCallback={this.doAccountInformationFetch}
+            accounts={this.state.accounts}
+            subaccounts={this.state.subaccounts}
+            error={this.state.error}
+            error_message={this.state.error_message}
+            add_accounts={this.state.add_accounts}
+            doAddAccountsDisplayCallback={this.doAddAccountsCallback}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
+
 
   renderLogin = () : JSX.Element => {
     return <div>
       <p> Username: <input value={this.state.username} onChange={this.doUsernameChange} />  </p>  
       <p> Password: <input value={this.state.password} onChange={this.doPasswordChange} />  </p>  
       <button onClick={this.doLoginClick}> Log In </button>
-      <button onClick={this.doRegistrationFlowClick}> New User? Register Here </button>
+      <button onClick={this.doRegistrationFlowClick}>  </button>
       {this.state.error ? <p className="error-message"> {this.state.error_message} </p> : <div/>}
     </div>
   };
@@ -148,7 +136,7 @@ export class App extends Component<AppProps, AppState> {
       <p> Username: <input value={this.state.username} onChange={this.doUsernameChange} />  </p>  
       <p> Password: <input value={this.state.password} onChange={this.doPasswordChange} />  </p>  
       <button onClick={this.doRegistrationClick}> Register </button>
-      <button onClick={this.doLoginFlowClick}> Already existing user? Login Here </button>
+      <button onClick={this.doLoginFlowClick}> {REGISTER_TEXT}</button>
       {this.state.error ? <p> {this.state.error_message}</p> : <div/>}
     </div>
   };
@@ -271,7 +259,7 @@ export class App extends Component<AppProps, AppState> {
 
   doInfoJson = (data: unknown) => {
     // validate it’s an object
-    if (!this.isRecord(data)) {
+    if (!isRecord(data)) {
       this.doInfoError("response is not in expected form (not an object)");
       return;
     }
@@ -331,7 +319,7 @@ export class App extends Component<AppProps, AppState> {
 
   doInfoSubacctsJson = (data: unknown) => {
     // validate it’s an object
-    if (!this.isRecord(data)) {
+    if (!isRecord(data)) {
       this.doInfoError("response is not in expected form (not an object)");
       return;
     }
@@ -373,9 +361,7 @@ export class App extends Component<AppProps, AppState> {
     this.setState({error: true, error_message: msg});
   };
 
-  isRecord = (val: unknown): val is Record<string, unknown> => {
-    return val !== null && typeof val === "object";
-  };
+
 
 }
 

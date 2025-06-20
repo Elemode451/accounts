@@ -28,11 +28,12 @@ export const LoginForm = ({
     <div>
       <p>Username: <input value={username} onChange={onUsernameChange} /></p>
       <p>Password: <input value={password} onChange={onPasswordChange} /></p>
+      <div className="action-button-row">
 
-      <button onClick={onSubmitClick}>{submitLabel}</button>
+        <button onClick={onSubmitClick}>{submitLabel}</button>
 
-      {renderExtras ? renderExtras() : null}
-
+        {renderExtras ? renderExtras() : null}
+      </div>
       {error ? <p className="error-message" >{error_message}</p> : <div />}
     </div>
   );

@@ -1,0 +1,265 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  overflow: hidden;
+  background: #121420;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* === BACKGROUND GRADIENT === */
+body::before {
+  content: "";
+  position: fixed;
+  z-index: -3;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(135deg, #1a1a2e, #1f1c2c, #2c3e50, #1a1a2e);
+  background-size: 300% 300%;
+  animation: darkGradientFlow 30s ease infinite;
+  filter: blur(80px);
+  opacity: 0.4;
+}
+
+@keyframes darkGradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* === PARTICLE GLOW GRID === */
+body::after {
+  content: "";
+  position: fixed;
+  z-index: -2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(#ffffff18 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.1;
+}
+
+@keyframes particleDrift {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(60px, 100px);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+/* === Layout Containers === */
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.manager-wrapper {
+  width: 100%;
+}
+
+/* === Form Wrapper (Login/Register) === */
+.form-wrapper,
+.account-manager-container {
+  position: relative;
+  background: linear-gradient(135deg, #1f1c2c, #2c3e50);
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow:
+    0 0 30px rgba(118, 75, 162, 0.15),
+    0 0 60px rgba(118, 75, 162, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: #f1f1f1;
+  z-index: 1;
+}
+
+.form-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05), transparent 60%);
+  transform: translate(-50%, -50%);
+  z-index: -2;
+  filter: blur(80px);
+  opacity: 0.3;
+}
+
+
+
+/* === Headings === */
+.title,
+.header {
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 24px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+}
+
+.accounts-section {
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* === Inputs === */
+input[type="text"],
+input[type="password"],
+input {
+  width: 100%;
+  padding: 8px 10px;          /* ↓ was 10px 12px */
+  font-size: 13px;            /* ↓ was 14px */
+  border: 1px solid #555;
+  border-radius: 6px;
+  background-color: #2c2f36;
+  color: #fff;
+  outline: none;
+  margin-bottom: 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+
+input:focus {
+  border-color: #764ba2;
+  box-shadow: 0 0 5px rgba(118, 75, 162, 0.6);
+}
+
+/* === Labels === */
+label {
+  color: #e0e0e0;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  display: block;
+}
+
+/* === Buttons === */
+button,
+input[type="submit"],
+.action-button {
+  padding: 10px 18px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  color: #ffffff;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease-in-out;
+  margin-right: 8px;
+}
+
+button:hover,
+input[type="submit"]:hover,
+.action-button:hover {
+  background: linear-gradient(135deg, #5a67d8, #6b46c1);
+  transform: scale(1.02);
+}
+
+/* === Button Layout === */
+.button-row,
+.action-button-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+/* === Error Message === */
+.error-message {
+  color: #ff4d4f;
+  background-color: rgba(255, 77, 79, 0.08);
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-top: 16px;
+  font-size: 14px;
+  text-align: center;
+  opacity: 1;
+  animation: fadeIn 0.25s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Make this column-based so it stacks the children */
+.login-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Keep this to center everything overall */
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  flex-direction: column;
+}
+
+
+.note-label {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: #e0e0e0;
+  margin-bottom: 8px;
+}
+
+.external-textbox {
+  background-color: rgba(255, 255, 255, 0.021); /* subtle opaque box */
+  padding: 16px 24px;
+  border-radius: 12px;
+  margin-top: 80px;
+  max-width: 800px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.static-note {
+  color: white;
+  font-size: 11px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+
+.login-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+

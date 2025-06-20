@@ -1,0 +1,165 @@
+body {
+  background: linear-gradient(135deg, #fdfbfb, #ebedee);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+}
+
+
+.account-manager-container {
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 32px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #1f1c2c, #2c3e50); /* 🔥 Dark cool gradient */
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: #f1f1f1; /* Light text for contrast */
+}
+
+
+/* Headings */
+.header {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 24px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+}
+
+.accounts-section {
+  margin-bottom: 24px;
+}
+
+.accounts-title {
+  font-size: 20px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 6px;
+  color: #d4d4d4;
+}
+
+/* Account lines */
+.account-entry {
+  font-family: monospace;
+  margin: 6px 0;
+  padding: 4px 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  color: #e0e0e0;
+  transition: background 0.2s;
+}
+
+.account-entry:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Spacer line */
+.separator {
+  color: #888;
+  text-align: center;
+  margin: 16px 0;
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 20px;
+  align-items: center;
+}
+
+.action-button,
+.cancel-button {
+  padding: 10px 18px;
+  font-size: 15px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  color: #ffffff;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease-in-out;
+}
+
+.action-button:hover,
+.cancel-button:hover {
+  background: linear-gradient(135deg, #5a67d8, #6b46c1);
+  transform: scale(1.02);
+}
+
+/* Form section */
+.add-account-form {
+  margin-top: 20px;
+}
+
+/* Form wrapper */
+.add-account-form {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Labels and inputs */
+.add-account-form label {
+  color: #e0e0e0;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.add-account-form input {
+  background-color: #2c2f36;
+  border: 1px solid #555;
+  border-radius: 4px;
+  padding: 8px;
+  color: #fff;
+  font-size: 14px;
+  width: 100%;
+}
+
+/* Align Add + Cancel buttons in a row */
+.add-account-form button {
+  width: fit-content;
+  padding: 10px 18px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease-in-out;
+}
+
+.add-account-form button:hover {
+  background: linear-gradient(135deg, #5a67d8, #6b46c1);
+}
+
+.add-account-form .cancel-button {
+  background: linear-gradient(135deg, #b24592, #f15f79);
+}
+
+.action-button-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.add-account-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+  align-items: flex-start;
+}

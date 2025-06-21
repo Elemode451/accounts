@@ -5,7 +5,8 @@
   "description": "accts",
   "main": "",
   "scripts": {
-    "start": "webpack-dev-server --config src/webpack.config.js"
+    "start": "webpack-dev-server --config src/webpack.config.js", 
+    "build": "webpack --config src/webpack.config.js"
   },
   "author": "",
   "license": "ISC",
